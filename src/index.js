@@ -4,11 +4,10 @@ import { graphql } from 'graphql';
 import bodyParser from 'body-parser';
 
 const app = express();
-const PORT = process.env.HTTP_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.text({type: 'application/graphql'}));
-// Eslint doesn't like async function
-//noinspection Eslint
+
 app.post('/graphql', async function (req, res) {
   const body = req.body;
   const result = await graphql(schema, body);
