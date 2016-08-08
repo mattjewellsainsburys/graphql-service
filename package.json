@@ -1,0 +1,37 @@
+{
+  "name": "js-service-dummy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./build/*",
+    "test": "export JUNIT_REPORT_PATH=build/report.xml; mocha --compilers js:babel-register --reporter mocha-jenkins-reporter",
+    "build": "babel src -d build --source-maps=true",
+    "start": "npm run-script build && node ./build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.11.6",
+    "babel-runtime": "^6.11.6",
+    "eslint": "^3.2.2",
+    "eslint-config-airbnb": "^10.0.0",
+    "eslint-plugin-import": "^1.12.0",
+    "eslint-plugin-jsx-a11y": "^2.0.1",
+    "eslint-plugin-react": "^6.0.0",
+    "json-loader": "^0.5.4",
+    "mocha": "^3.0.0",
+    "mocha-jenkins-reporter": "^0.2.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "graphql": "^0.6.2"
+  }
+}
