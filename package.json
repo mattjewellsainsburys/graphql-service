@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./build/*",
     "test": "export JUNIT_REPORT_PATH=build/report.xml; mocha --compilers js:babel-register --reporter mocha-jenkins-reporter",
-    "build": "babel src -d build --source-maps=true",
+    "build": "./node_modules/.bin/babel src -d build --source-maps=true",
     "start": "npm run-script build && node ./build"
   },
   "author": "",
