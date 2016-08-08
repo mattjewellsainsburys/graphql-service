@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf ./build/*",
     "test": "export JUNIT_REPORT_PATH=build/report.xml; mocha --compilers js:babel-register --reporter mocha-jenkins-reporter",
-    "build": "./node_modules/.bin/babel src -d build --source-maps=true",
+    "build": "babel src -d build --source-maps=true",
     "start": "npm run-script build && node ./build"
   },
   "author": "",
@@ -26,8 +26,7 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^6.0.0",
     "json-loader": "^0.5.4",
-    "mocha": "^3.0.0",
-    "mocha-jenkins-reporter": "^0.2.3"
+    "mocha": "^3.0.0"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
