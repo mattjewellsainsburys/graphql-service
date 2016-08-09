@@ -20,12 +20,12 @@ export class DummyValueService {
  * Any additional arguments passed will be passed to the fn when resolving
  */
 export class ValueOfService {
-  constructor(fn, ...args) {
+  constructor(fn, ...initArgs) {
     this.fn = fn;
-    this.args = args;
+    this.initArgs = initArgs;
   }
 
-  resolve() {
-    return this.fn(...this.args);
+  resolve(...runtimeArgs) {
+    return this.fn(...this.initArgs, ...runtimeArgs);
   }
 }

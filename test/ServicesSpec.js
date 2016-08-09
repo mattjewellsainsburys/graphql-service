@@ -14,6 +14,20 @@ describe('Value of Services', function () {
 
     const expected = ['a', 'b', 'c'];
     const actual = service.resolve();
-    assert.equal(actual, expected);
-  })
+    assert.deepEqual(actual, expected);
+  });
+  it('passes any arguments passed at resolve time to the service', () => {
+    const service = new ValueOfService((a, b, c) => [a, b, c]);
+
+    const expected = ['a', 'b', 'c'];
+    const actual = service.resolve('a', 'b', 'c');
+    assert.deepEqual(actual, expected);
+  });
+  it('can use a combination of init and resolve time arguments', () => {
+    const service = new ValueOfService((a, b, c, d) => [a, b, c, d], '1', '2');
+
+    const expected = ['1', '2', 'a', 'b'];
+    const actual = service.resolve('a', 'b');
+    assert.deepEqual(actual, expected);
+  });
 });

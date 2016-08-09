@@ -20,6 +20,6 @@ export const createSchema = function (services) {
 function modelOfType (type, service) {
   return {
     type: type,
-    resolve: () => service.resolve()
+    resolve: (parentValue, args, request) => service.resolve(parentValue, args, request)
   }
 }
