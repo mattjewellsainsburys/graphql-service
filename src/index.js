@@ -1,22 +1,23 @@
-import express from 'express';
-import schema from './schema';
-import { graphql } from 'graphql';
-import bodyParser from 'body-parser';
+import { createSchema } from './schema';
+import { createAppWithSchema } from './application'
+import { ValueOfService, DummyValueService } from './services'
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const config = {
+  port: process.env.PORT || 3000
+};
 
-app.use(bodyParser.text({type: 'application/graphql'}));
-
-app.post('/graphql', async function (req, res) {
-  const body = req.body;
-  const result = await graphql(schema, body);
-  res.send(result);
+const schema = createSchema({
+  counterService: new ValueOfService((model) => ++model.counter, {counter: 0}),
+  pingService: new DummyValueService("pong")
 });
 
-const server = app.listen(PORT, () => {
+const app = createAppWithSchema(schema);
+
+const server = app.listen(config.port, () => {
   const host = server.address().address;
   const port = server.address().port;
 
   console.log(`Listening at http://${host}:${port}`);
 });
+
+

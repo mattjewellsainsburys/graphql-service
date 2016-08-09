@@ -1,22 +1,25 @@
 import {
-  GraphQLObjectType,
   GraphQLSchema,
+  GraphQLObjectType,
   GraphQLInt,
   GraphQLString
-} from 'graphql/type'
+} from 'graphql'
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: {
-      hello: {
-        type: GraphQLString,
-        resolve() {
-          return 'world';
-        }
-      }
-    }
-  })
-});
+export const createSchema = function (services) {
+  return new GraphQLSchema({
+    query: new GraphQLObjectType({
+      name: 'Query',
+      fields: () => ({
+        counter: modelOfType(GraphQLInt, services.counterService),
+        ping: modelOfType(GraphQLString, services.pingService)
+      })
+    })
+  });
+};
 
-export default schema;
+function modelOfType (type, service) {
+  return {
+    type: type,
+    resolve: () => service.resolve()
+  }
+}
