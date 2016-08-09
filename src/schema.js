@@ -11,11 +11,19 @@ export const createSchema = function (services) {
       name: 'Query',
       fields: () => ({
         counter: modelOfType(GraphQLInt, services.counterService),
-        ping: modelOfType(GraphQLString, services.pingService)
+        ping: modelOfType(GraphQLString, services.pingService),
+        bob: modelOfType(PersonType, services.bobService)
       })
     })
   });
 };
+
+var PersonType = new GraphQLObjectType({
+  name: 'Person',
+  fields: () => ({
+    name: { type: GraphQLString }
+  })
+});
 
 function modelOfType (type, service) {
   return {

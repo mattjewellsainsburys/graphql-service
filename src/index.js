@@ -1,6 +1,7 @@
 import { createSchema } from './schema';
-import { createAppWithSchema } from './application'
-import { ValueOfService, DummyValueService } from './services'
+import { createAppWithSchema } from './application';
+import { ValueOfService, DummyValueService } from './services';
+import { composeRequiresRoles } from './serviceDecorators';
 
 const config = {
   port: process.env.PORT || 3000
@@ -8,7 +9,8 @@ const config = {
 
 const schema = createSchema({
   counterService: new ValueOfService((model) => ++model.counter, {counter: 0}),
-  pingService: new DummyValueService("pong")
+  pingService: new DummyValueService('pong'),
+  bobService: composeRequiresRoles(new DummyValueService({name: 'bob'}), 'READ-BOB')
 });
 
 const app = createAppWithSchema(schema);
