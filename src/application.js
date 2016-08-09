@@ -12,8 +12,15 @@ export const createAppWithSchema = (schema) => {
 
   app.use(morgan('combined'));
 
-  app.use(function (req, res, next) {
-    req.user = {roles: ['user', 'admin', 'super-admin']};
+  // TODO: obviously this isn't the best way to secure an API. proof of concept of role based access
+  const currentlyValidTokens = {
+    user: {roles: ['USER']},
+    matt: {roles: ['USER', 'READ-BOB']}
+  };
+  app.use('/graphql', (req, res, next) => {
+    const requestToken = req.get('Authorization');
+    req.user = currentlyValidTokens[requestToken];
+    console.log('req.user', req.user);
     next();
   });
 
